@@ -9,3 +9,5 @@
 - Template literals using backticks allow for variables to be easily placed inside of strings.
 
 - ES6 added the ability to use modules to seperate files and import/export functionality between them.
+
+- Computed property names allow users to dynamically compute the property name. This is done using square brackets e.g. [functionName]

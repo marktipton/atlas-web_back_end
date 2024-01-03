@@ -11,3 +11,6 @@
 - ES6 added the ability to use modules to seperate files and import/export functionality between them.
 
 - Computed property names allow users to dynamically compute the property name. This is done using square brackets e.g. [functionName]
+
+- ES6 allows method properties to be defined as methodName() {} rather than methodName: function() {}.
+

@@ -14,3 +14,4 @@
 
 - ES6 allows method properties to be defined as methodName() {} rather than methodName: function() {}.
 
+- in ES6, an iterator is an object that provides a way to access the elements of a collection, e.g. an array or set. .next() can be used to iterate through the collection and the boolean 'done' can be used to check whether the end of the array has been reached.

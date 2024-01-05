@@ -3,7 +3,7 @@ export default class Building {
     // if (new.target === Building) {
     //   throw new TypeError('Abstract class Building cannot be instantiated directly');
     // }
-    if (!this.evacuationWarningMessage && this.constructor !== Building) {
+    if (typeof this.evacuationWarningMessage !== 'function') {
       throw new TypeError('Class extending Building must override evacuationWarningMessage.');
     }
     this._sqft = sqft;
@@ -12,4 +12,5 @@ export default class Building {
   get sqft() {
     return this._sqft;
   }
+
 }

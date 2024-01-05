@@ -46,7 +46,7 @@ const listOfStudents = [
   student2,
   student3,
   student4,
-  student5
+  student5,
 ];
 
 export { listOfStudents };

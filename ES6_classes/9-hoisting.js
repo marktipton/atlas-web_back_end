@@ -49,4 +49,4 @@ const listOfStudents = [
   student5,
 ];
 
-export { listOfStudents };
+export default listOfStudents;

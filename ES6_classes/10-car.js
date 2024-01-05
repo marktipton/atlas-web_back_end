@@ -18,6 +18,8 @@ export default class Car {
   }
 
   static cloneCar(brand, motor, color) {
-    return new Car(brand, motor, color);
+    // check for species property and use it if it exists
+    const constructor = this[Symbol.species] || this;
+    return new constructor(brand, motor, color);
   }
 }

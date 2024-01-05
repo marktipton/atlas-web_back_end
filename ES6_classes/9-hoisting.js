@@ -28,6 +28,14 @@ export class StudentHolberton {
     return this._holbertonClass;
   }
 
+  toString() {
+    return `StudentHolberton {
+  _firstName: '${this._firstName}',
+  _lastName: '${this._lastName}',
+  _holbertonClass: ${this._holbertonClass.year}
+}`;
+  }
+
   get fullStudentDescription() {
     return `${this._firstName} ${this._lastName} - ${this._holbertonClass.year} - ${this._holbertonClass.location}`;
   }

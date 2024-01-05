@@ -5,4 +5,6 @@
 - new instances of classes can be created using the 'new' keyword:
 newInstance = new ClassName;
 
+- JS does not support abstract classes but an abstract class can effectively be created by throwing errors in the constructor of a class.
+
 -

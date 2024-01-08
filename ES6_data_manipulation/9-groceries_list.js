@@ -6,6 +6,6 @@ export default function groceriesList() {
     Rice: 1,
     Banana: 5,
   };
-  const groceryMap = Map(groceryList);
+  const groceryMap = new Map(Object.entries(groceryList));
   return groceryMap;
 }

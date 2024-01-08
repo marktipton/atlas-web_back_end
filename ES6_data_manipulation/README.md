@@ -1,2 +1,7 @@
-# ES6 Arrays
+# ES6 Arrays and useful functions
 
+- Map function:
+
+- Filter function:
+
+- Reduce function:

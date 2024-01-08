@@ -1,11 +1,11 @@
 export default function groceriesList() {
-  groceryList = {
+  const groceryList = {
     Apples: 10,
     Tomatoes: 10,
     Pasta: 1,
     Rice: 1,
     Banana: 5,
-  }
-  groceryMap = Map(groceriesList);
+  };
+  const groceryMap = Map(groceryList);
   return groceryMap;
 }

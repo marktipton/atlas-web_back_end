@@ -6,11 +6,11 @@ export default function updateUniqueItems(foodMap) {
 
   foodMap.forEach((quantity, item) => {
     if (quantity === 1) {
-      //replace with 100
+      // replace with 100
       updatedMap.set(item, 100);
     } else {
-      //use original value
+      // use original value
       updatedMap.set(item, quantity);
     }
-  })
+  });
 }

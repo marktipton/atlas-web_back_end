@@ -7,6 +7,9 @@ export default function signUpUser(firstName, lastName) {
         lastName: lastName,
       };
       resolve(promiseObject);
+    } else {
+      reject(new Error('Reject'));
     }
   });
+  return promise;
 }

@@ -3,8 +3,8 @@ export default function signUpUser(firstName, lastName) {
     const a = true;
     if (a) {
       const promiseObject = {
-        firstName: firstName,
-        lastName: lastName,
+        firstName,
+        lastName,
       };
       resolve(promiseObject);
     } else {

@@ -1,4 +1,4 @@
-import {uploadPhoto, createUser} from './5-photo-reject';
+import { uploadPhoto, createUser } from './utils';
 
 export default function handleProfileSignup() {
   const promises = [uploadPhoto(), createUser()];

@@ -1,6 +1,7 @@
 export default function uploadPhoto(fileName) {
   return new Promise((resolve, reject) => {
-    if (fileName.endsWith('.jpg')) {
+    const a = true
+    if (!a) {
       resolve(`File ${fileName} uploaded successfully.`);
     } else {
       reject(new Error(`Error: ${fileName} cannot be processed.`));

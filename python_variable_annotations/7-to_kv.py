@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """complex types converting string and int/float to tuple"""
-from typing import Union
+from typing import Tuple, Union
 
 
-def to_kv(k: str, v: Union[int, float]) -> tuple[str, float]:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """takes string and number and returns tuple with both"""
-    return tuple(k, v)
+    return (k, v)

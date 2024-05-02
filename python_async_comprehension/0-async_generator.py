@@ -5,14 +5,12 @@ import asyncio
 import random
 from typing import List
 
-async def async_generator() -> List[int]:
+async def async_generator() -> List[float]:
     """coroutine that creates 10 random numbers between 1 and 10"""
 
-    random_number_list = []
-    i = 0
+    # random_number_list = []
+    i: int = 0
     while (i < 10):
         i += 1
         await asyncio.sleep(1)
-        random_number_list += random.uniform(0, 10)
-
-    yield random_number_list
+        yield random.uniform(0, 10)

@@ -10,7 +10,7 @@ async def async_generator() -> List[int]:
     i = 0
     while (i < 10):
         i += 1
-        asyncio.sleep(1)
+        await asyncio.sleep(1)
         random_number_list += random.uniform(0, 10)
 
     return random_number_list

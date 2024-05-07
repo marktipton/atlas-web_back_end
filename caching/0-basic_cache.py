@@ -16,7 +16,7 @@ class BasicCache(BaseCaching):
         """add cache data w/ key value pair"""
         if key is None or item is None:
             return
-        self.cache_data(key) = item
+        self.cache_data = item
 
     def get(self, key):
         """retrieve cache data using key value pair"""

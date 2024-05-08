@@ -16,10 +16,10 @@ class BasicCache(BaseCaching):
         """add cache data w/ key value pair"""
         if key is None or item is None:
             return
-        self.cache_data = item
+        self.cache_data[key] = item
 
     def get(self, key):
         """retrieve cache data using key value pair"""
         if key is None or key not in self.cache_data:
             return None
-        return self.cache_data(key)
+        return self.cache_data.get(key)

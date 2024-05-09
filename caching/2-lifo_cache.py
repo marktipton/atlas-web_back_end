@@ -18,9 +18,8 @@ class LIFOCache(BaseCaching):
         self.insertion_order.append(key)
 
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            # get last key and pop that item from the stack
-            last_key = self.insertion_order.pop()
-            self.cache_data.pop(last_key)
+            last_key = list(self.cache_data.keys())[-1]
+            del self.cache_data[last_key]
             print(f'DISCARD: {last_key}')
 
     def get(self, key):

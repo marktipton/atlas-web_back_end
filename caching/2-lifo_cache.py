@@ -14,13 +14,12 @@ class LIFOCache(BaseCaching):
         """assigns item to key in dictionary if not none"""
         if key is None or item is None:
             return
-        self.cache_data[key] = item
-        self.insertion_order.append(key)
 
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             last_key = list(self.cache_data.keys())[-1]
             self.cache_data.pop(last_key)
             print(f'DISCARD: {last_key}')
+        self.cache_data[key] = item
 
     def get(self, key):
         """gets the value in self.cache_data linked to a specified key"""

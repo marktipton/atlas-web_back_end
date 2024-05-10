@@ -16,14 +16,15 @@ class MRUCache(BaseCaching):
         if key is None or item is None:
             return
 
-        self.cache_data[key] = item
-        self.update_use_order(key)
 
-        if len(self.cache_data) > self.MAX_ITEMS:
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             # get key for
             mru = self.use_order.pop()
             self.cache_data.pop(mru)
             print(f'DISCARD: {mru}')
+
+        self.cache_data[key] = item
+        self.update_use_order(key)
 
     def update_use_order(self, key):
         """tracks the most key usage recency"""

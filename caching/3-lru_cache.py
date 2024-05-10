@@ -19,7 +19,7 @@ class LRUCache(BaseCaching):
         self.cache_data[key] = item
         self.update_use_order(key)
 
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+        if len(self.cache_data) > self.MAX_ITEMS:
             # get key for
             lru = self.use_order.pop(0)
             self.cache_data.pop(lru)
@@ -35,4 +35,5 @@ class LRUCache(BaseCaching):
         """gets the value in self.cache_data linked to a specified key"""
         if key is None or key not in self.cache_data:
             return None
+        self.update_use_order(key)
         return self.cache_data.get(key)

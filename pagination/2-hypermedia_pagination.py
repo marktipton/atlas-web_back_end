@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pagination for baby names with get_page method"""
+"""Hypermedia Pagination for baby names"""
 
 import csv
 import math

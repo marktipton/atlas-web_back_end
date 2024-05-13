@@ -27,8 +27,8 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """return page of dataset corresponding to page count and size"""
-        assert page > 0 and isinstance(page, int), "page is positive int"
-        assert page_size > 0 and isinstance(page_size, int), "is pos int"
+        assert isinstance(page, int) and page > 0, "page is positive int"
+        assert isinstance(page_size, int) and page_size > 0, "is pos int"
 
         # tuple unpacking to get start and end index
         start_index, end_index = self.index_range(page, page_size)

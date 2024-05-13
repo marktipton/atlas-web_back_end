@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+"""Pagination for baby names with get_page method"""
+
 import csv
 import math
 from typing import List

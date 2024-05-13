@@ -27,7 +27,12 @@ class Server:
         assert page > 0 and isinstance (page, int), "page is positive int"
         assert page_size > 0 and isinstance (page_size, int), "is pos int"
 
-
+        # tuple unpacking to get start and end index
+        start_index, end_index = self.index_range(page, page_size)
+        # dataset method of server class to read data from csv
+        dataset = self.dataset()
+        # slice out specified page from dataset
+        return dataset[start_index:end_index]
 
     def index_range(page, page_size):
         """return start index and end index for pagination"""

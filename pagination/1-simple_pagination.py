@@ -37,7 +37,7 @@ class Server:
         # slice out specified page from dataset
         return dataset[start_index:end_index]
 
-    def index_range(page, page_size):
+    def index_range(self, page, page_size):
         """return start index and end index for pagination"""
         start_index = (page - 1) * page_size
         end_index = page * page_size

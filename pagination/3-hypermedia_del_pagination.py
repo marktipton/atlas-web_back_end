@@ -46,6 +46,10 @@ class Server:
         the current page size,
         and the page of the dataset
         """
+        assert 0 <= index < len(self.dataset()), "Invalid index provided"
+        next_index = index + page_size
+        data = self.dataset()[index:next_index]
+
         return {
             "index": index,
             "next_index": next_index,

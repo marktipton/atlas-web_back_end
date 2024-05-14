@@ -48,6 +48,7 @@ class Server:
         """
         assert 0 <= index < len(self.dataset()), "Invalid index provided"
         next_index = index + page_size
+        # sliced out page from the dataset
         data = self.dataset()[index:next_index]
 
         return {

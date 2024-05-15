@@ -8,4 +8,5 @@ def filter_datum(
         redaction: str,
         message: str,
         separator: str) -> str:
-
+        # re.sub(pattern, repl, string, count=0, flags=0)
+        return re.sub(fields, redaction, message)

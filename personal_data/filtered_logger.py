@@ -9,4 +9,6 @@ def filter_datum(
         message: str,
         separator: str) -> str:
         # re.sub(pattern, repl, string, count=0, flags=0)
-        return re.sub(fields, redaction, message)
+        for field in fields:
+                obfuscated = re.sub(f'{field}=[^{separator}]*', f'{field}={redaction}', message)
+        return obfuscated

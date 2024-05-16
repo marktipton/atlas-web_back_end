@@ -39,5 +39,5 @@ class RedactingFormatter(logging.Formatter):
         """filters specified fields and obfuscates values"""
         message = record.msg
         record.msg = filter_datum(self.fields, self.REDACTION,
-                                    message, self.SEPARATOR)
+                                  message, self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)

@@ -47,3 +47,5 @@ Partially or fully masked IP addresses
 However, the classification of PII and non-PII is vague. Moreover, NIST doesn’t reference cookie IDs and device IDs, so many AdTech companies, advertisers, and publishers consider them as non-PII. As we’ll see, this is in contrast to the definition of personal data, which treats such digital tackers as information that could identify an individual.
 
 - src: https://piwik.pro/blog/what-is-pii-personal-data/#what-is-personally-identifiable-information-(pii)?
+
+- Hello?

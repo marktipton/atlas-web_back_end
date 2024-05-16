@@ -12,9 +12,6 @@ def filter_datum(
     """returns obfuscated information for some fields"""
     # re.sub(pattern, repl, string, count=0, flags=0)
     for field in fields:
-        obfuscated = re.sub(
-                f'{field}=[^{separator}]*',
-                f'{field}={redaction}',
-                message
-                )
+        pattern = f'{field}=[^{separator}]*'
+        obfuscated = re.sub(pattern, f'{field}={redaction}', message)
     return obfuscated

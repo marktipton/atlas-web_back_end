@@ -66,4 +66,5 @@ def get_logger() -> logging.Logger:
 
 def get_db() -> MySQLConnection:
     """returns a connector to the sequel database"""
-
+    print(os.environ['HOME'])
+    return os.environ['HOME']

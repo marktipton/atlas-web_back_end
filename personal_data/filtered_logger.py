@@ -5,6 +5,7 @@ from typing import List, Optional
 import logging
 import os
 import re
+import mysql.connector
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
@@ -66,5 +67,16 @@ def get_logger() -> logging.Logger:
 
 def get_db() -> MySQLConnection:
     """returns a connector to the sequel database"""
-    print(os.environ['HOME'])
-    return os.environ['HOME']
+    # print(os.environ['HOME'])
+    # return os.environ['HOME']
+    username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    databasename = os.getenv('PERSONAL_DATA_DB_NAME')
+    connector = mysql.connector.connect(
+        user=username,
+        password=password,
+        host=host,
+        database=databasename
+    )
+    return connector

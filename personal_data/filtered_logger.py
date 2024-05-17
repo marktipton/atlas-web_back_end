@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """returns obfuscated log message"""
-from typing import List
+from mysql.connector.connection import MySQLConnection
+from typing import List, Optional
 import logging
+import os
 import re
 
 
@@ -61,3 +63,7 @@ def get_logger() -> logging.Logger:
 #     stop logger from giving info to other loggers
     logger.propagate = False
     return logger
+
+def get_db() -> MySQLConnection:
+    """returns a connector to the sequel database"""
+

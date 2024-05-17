@@ -65,6 +65,7 @@ def get_logger() -> logging.Logger:
     logger.propagate = False
     return logger
 
+
 def get_db() -> MySQLConnection:
     """returns a connector to the sequel database"""
     # print(os.environ['HOME'])

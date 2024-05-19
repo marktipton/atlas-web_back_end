@@ -17,6 +17,7 @@ def hash_password(password: str) -> bytes:
 
     return(hashedPassword)
 
+
 def is_valid(hashed_password: bytes, password: str) -> bool:
     """checks if password is valid, returns false if not"""
     # convert user entered pw to bytes

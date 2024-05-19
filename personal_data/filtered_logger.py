@@ -81,3 +81,11 @@ def get_db() -> MySQLConnection:
         database=databasename
     )
     return connector
+
+def main():
+    print("hello there")
+    print(get_db())
+
+
+if __name__ == "__main__":
+    main()

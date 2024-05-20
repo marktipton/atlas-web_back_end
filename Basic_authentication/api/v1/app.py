@@ -49,9 +49,9 @@ def unauthorized(error) -> str:
 def before_request():
     """Filter requests"""
     if auth is None:
-        pass
+        return
     if not auth.require_auth(request.path, excluded_paths):
-        pass
+        return
     if auth.authorization_header(request) is None:
         abort(401)
     if auth.current_user(request) is None:

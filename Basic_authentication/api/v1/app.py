@@ -24,6 +24,7 @@ excluded_paths = [
     '/api/v1/forbidden/'
 ]
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
@@ -44,16 +45,18 @@ def unauthorized(error) -> str:
     """
     return jsonify({"error": "Unauthorized"}), 401
 
+
 def before_request():
     """Filter requests"""
-    if auth == None:
+    if auth is None:
         pass
-    if auth.require_auth(request.path, excluded_paths) == False:
+    if not auth.require_auth(request.path, excluded_paths):
         pass
-    if auth.authorization_header(request) == None:
+    if auth.authorization_header(request) is None:
         abort(401)
-    if auth.current_user(request) == None:
+    if auth.current_user(request) is None:
         abort(403)
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")

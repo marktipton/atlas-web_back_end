@@ -15,7 +15,7 @@ class BasicAuth(Auth):
             not isinstance(authorization_header, str) or \
                 not authorization_header.startswith('Basic '):
             return None
-        """otherwise return value after basic"""
+        """otherwise return value after basic """
         return authorization_header.split(' ')[1]
 
     def decode_base64_authorization_header(
@@ -31,3 +31,14 @@ class BasicAuth(Auth):
             return decodedutf8
         except Exception as e:
             pass
+
+    def extract_user_credentials(
+            self, decoded_base64_authorization_header: str) -> (str, str):
+        """returns user email and pw from decoded b-64 value"""
+        if decoded_base64_authorization_header is None or \
+            not isinstance(decoded_base64_authorization_header, str) or \
+                ":" not in decoded_base64_authorization_header:
+            return None, None
+        email = decoded_base64_authorization_header.split[0]
+        pw = decoded_base64_authorization_header.split[1]
+        return email, pw

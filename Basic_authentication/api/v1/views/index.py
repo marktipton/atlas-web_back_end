@@ -42,3 +42,9 @@ def forbidden() -> str:
       - the status of the API
     """
     abort(403)
+
+@app_views.route('/users', methods=['GET'], strict_slashes=False)
+def get_users() -> str:
+    """ GET /api/v1/users
+    """
+    abort(401)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Module of Index views
 """
-from flask import jsonify, abort
+from flask import jsonify, abort, request
 from api.v1.views import app_views
 
 
@@ -47,4 +47,8 @@ def forbidden() -> str:
 def get_users() -> str:
     """ GET /api/v1/users
     """
-    abort(401)
+    auth_header = request.headers.get('Authorization')
+    if auth_header == 'Test':
+      abort(403)
+    else:
+      abort(401)

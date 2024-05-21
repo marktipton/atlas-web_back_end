@@ -45,11 +45,12 @@ def unauthorized(error) -> str:
     """
     return jsonify({"error": "Unauthorized"}), 401
 
-
+@app.before_request
 def before_request():
     """Filter requests"""
     if auth is None:
         return
+    # check if request.path is not one of the excluded paths
     if not auth.require_auth(request.path, excluded_paths):
         return
     if auth.authorization_header(request) is None:

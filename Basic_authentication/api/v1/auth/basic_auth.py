@@ -4,6 +4,7 @@ import base64
 from flask import request
 from typing import List, TypeVar, Tuple
 from .auth import Auth
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -43,3 +44,25 @@ class BasicAuth(Auth):
         email = emailpw[0]
         pw = emailpw[1]
         return (email, pw)
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """returns user instance based on email and pw"""
+        if user_email is None or not isinstance(user_email, str) or \
+            user_pwd is None or not isinstance(user_pwd, str):
+
+            return None
+
+        try:
+            users = User.search({'email': user_email})
+        except Exception as e:
+            return None
+
+        if not users:
+            return None
+        # check if user passwords match
+        for user in users:
+            if user.is_valid_password(user_pwd):
+                return user
+        # return none if not valid PW
+        return None

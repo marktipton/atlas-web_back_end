@@ -72,9 +72,17 @@ class BasicAuth(Auth):
             retrieves User instance for request
         """
         auth_header = super().authorization_header(self, request)
+        if auth_header is None:
+            return None
         extract = self.extract_base64_authorization_header(self, auth_header)
+        if extract is None:
+            return None
         decode = self.decode_base64_authorization_header(self, extract)
+        if decode is None:
+            return None
         extractUser = self.extract_user_credentials(self, decode)
+        if extractUser is None:
+            return None
         userObject = self.user_object_from_credentials(self, extractUser)
 
         return userObject

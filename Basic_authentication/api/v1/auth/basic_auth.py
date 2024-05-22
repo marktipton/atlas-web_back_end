@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Managing API basic authentication"""
 import base64
+import logging
 from flask import request
 from typing import List, TypeVar, Tuple
 from .auth import Auth
 from models.user import User
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 class BasicAuth(Auth):
@@ -56,13 +59,15 @@ class BasicAuth(Auth):
         try:
             users = User.search({'email': user_email})
         except Exception as e:
+            logging.error(f"User search error: {e}")
             return None
 
-        if not users:
-            return None
         # check if user passwords match
         for user in users:
+            logging.debug(f"User object: {user}")
+
             if user.is_valid_password(user_pwd):
+                logging.debug(f"User object: {user}")
                 return user
         # return none if not valid PW
         return None
@@ -72,19 +77,27 @@ class BasicAuth(Auth):
             retrieves User instance for request
         """
         auth_header = super().authorization_header(request)
+        logging.debug(f"Authorization header: {auth_header}")
         if auth_header is None:
+            logging.debug("Authorization header is None")
             return None
         extract = self.extract_base64_authorization_header(auth_header)
+        logging.debug(f"Extracted Base64 part: {extract}")
         if extract is None:
+            logging.debug("Extracted Base64 part is None")
             return None
         decode = self.decode_base64_authorization_header(extract)
+        logging.debug(f"Decoded Base64 part: {decode}")
         if decode is None:
+            logging.debug("Decoded Base64 part is None")
             return None
         extractUser = self.extract_user_credentials(decode)
+        logging.debug(f"Extracted user credentials: {extractUser}")
         if extractUser is None:
+            logging.debug("Extracted user credentials are invalid")
             return None
         # unpack username and pw from Tuple
         userEmail, userPw = extractUser
         userObject = self.user_object_from_credentials(userEmail, userPw)
-
+        logging.debug(f"User object: {userObject}")
         return userObject

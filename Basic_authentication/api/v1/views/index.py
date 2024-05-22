@@ -43,12 +43,12 @@ def forbidden() -> str:
     """
     abort(403)
 
-@app_views.route('/users', methods=['GET'], strict_slashes=False)
-def get_users() -> str:
-    """ GET /api/v1/users
-    """
-    auth_header = request.headers.get('Authorization')
-    if auth_header == 'Test':
-      abort(403)
-    else:
-      abort(401)
+# @app_views.route('/users', methods=['GET'], strict_slashes=False)
+# def get_users() -> str:
+#     """ GET /api/v1/users
+#     """
+#     auth_header = request.headers.get('Authorization')
+#     if auth_header == 'Test':
+#       abort(403)
+#     else:
+#       abort(401)

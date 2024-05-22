@@ -77,27 +77,18 @@ class BasicAuth(Auth):
             retrieves User instance for request
         """
         auth_header = super().authorization_header(request)
-        logging.debug(f"Authorization header: {auth_header}")
         if auth_header is None:
-            logging.debug("Authorization header is None")
             return None
         extract = self.extract_base64_authorization_header(auth_header)
-        logging.debug(f"Extracted Base64 part: {extract}")
         if extract is None:
-            logging.debug("Extracted Base64 part is None")
             return None
         decode = self.decode_base64_authorization_header(extract)
-        logging.debug(f"Decoded Base64 part: {decode}")
         if decode is None:
-            logging.debug("Decoded Base64 part is None")
             return None
         extractUser = self.extract_user_credentials(decode)
-        logging.debug(f"Extracted user credentials: {extractUser}")
         if extractUser is None:
-            logging.debug("Extracted user credentials are invalid")
             return None
         # unpack username and pw from Tuple
         userEmail, userPw = extractUser
         userObject = self.user_object_from_credentials(userEmail, userPw)
-        logging.debug(f"User object: {userObject}")
         return userObject

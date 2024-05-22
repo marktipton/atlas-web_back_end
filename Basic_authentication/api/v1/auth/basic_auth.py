@@ -83,6 +83,8 @@ class BasicAuth(Auth):
         extractUser = self.extract_user_credentials(decode)
         if extractUser is None:
             return None
-        userObject = self.user_object_from_credentials(extractUser)
+        # unpack username and pw from Tuple
+        userEmail, userPw = extractUser
+        userObject = self.user_object_from_credentials(userEmail, userPw)
 
         return userObject

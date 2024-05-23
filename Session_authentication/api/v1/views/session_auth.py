@@ -8,7 +8,7 @@ from os import getenv
 
 
 @app_views.route(
-    '/api/v1/auth_session/login',
+    '/auth_session/login',
     methods=['POST'],
     strict_slashes=False)
 def login() -> str:
@@ -26,14 +26,15 @@ def login() -> str:
     user = User.search({'email': email})
     if not user:
         return jsonify({"error": "no user found for this email"}), 404
+    user = user[0]
     if not user.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
-    else:
-        from api.v1.app import auth
-        session_id = auth.create_session(user.id)
 
-        response = make_response(user.to_json())
-        session_name = getenv('SESSION_NAME', '_my_session_id')
-        response.set_cookie(session_name, session_id)
+    from api.v1.app import auth
+    session_id = auth.create_session(user.id)
 
-        return response
+    response = make_response(user.to_json())
+    session_name = getenv('SESSION_NAME', '_my_session_id')
+    response.set_cookie(session_name, session_id)
+
+    return response

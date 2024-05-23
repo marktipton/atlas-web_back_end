@@ -10,4 +10,3 @@ from models.user import User
 
 class SessionAuth(Auth):
     """Session Authentication class"""
-

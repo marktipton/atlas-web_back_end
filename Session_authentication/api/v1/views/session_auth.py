@@ -11,7 +11,7 @@ from os import getenv
     '/api/v1/auth_session/login',
     methods=['POST'],
     strict_slashes=False)
-def status() -> str:
+def login() -> str:
     """ POST /api/v1/auth_session/login
     Return:
       - JSON response with the User data and set session cookie

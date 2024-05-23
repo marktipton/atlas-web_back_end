@@ -2,11 +2,13 @@
 """Managing API session authentication"""
 import base64
 import logging
+import requests
 import uuid
 from flask import request
 from typing import List, TypeVar, Tuple
 from .auth import Auth
 from models.user import User
+from os import getenv
 
 
 class SessionAuth(Auth):
@@ -26,3 +28,10 @@ class SessionAuth(Auth):
         if session_id is None or not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def session_cookie(self, request=None):
+        """returns cookie value from a request"""
+        if request is None:
+            return None
+        session_name = getenv('SESSION_NAME')
+        return request.cookies.get(session_name)

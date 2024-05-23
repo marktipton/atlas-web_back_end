@@ -28,10 +28,3 @@ class SessionAuth(Auth):
         if session_id is None or not isinstance(session_id, str):
             return None
         return self.user_id_by_session_id.get(session_id)
-
-    def session_cookie(self, request=None):
-        """returns cookie value from a request"""
-        if request is None:
-            return None
-        session_name = getenv('SESSION_NAME')
-        return request.cookies.get(session_name)

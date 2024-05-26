@@ -4,7 +4,7 @@ User Authentication
 """
 import bcrypt
 
-# class Auth:
+
 def _hash_password(password: str) -> bytes:
     """takes pw and returns salted hash version"""
     # convert pw to an array of bytes

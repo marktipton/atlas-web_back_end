@@ -4,7 +4,7 @@ Flask App
 """
 from auth import Auth
 from os import getenv
-from flask import Flask, jsonify, abort, request, make_response
+from flask import Flask, jsonify, abort, request, make_response, redirect
 from flask_cors import (CORS, cross_origin)
 from user import User
 import os
@@ -54,6 +54,22 @@ def login():
         response.set_cookie("session_id", session_id)
         return response
     abort(401)
+
+
+@app.route("/sessions", methods=['DELETE'])
+def logout():
+    """ DELETE /sessions
+        finds user with requested session id and destroys
+        the session for that user if they exist
+    """
+    session_id = request.form.get('session_id')
+
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        AUTH.destroy_session(user.id)
+        return redirect('/')
+
+    abort(403)
 
 
 if __name__ == "__main__":

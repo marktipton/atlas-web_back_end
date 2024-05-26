@@ -4,7 +4,7 @@ Flask App
 """
 from auth import Auth
 from os import getenv
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, make_response
 from flask_cors import (CORS, cross_origin)
 from user import User
 import os
@@ -36,6 +36,23 @@ def users():
         return jsonify({"email": user.email, "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registed"}), 400
+
+
+@app.route("/sessions", methods=['POST'])
+def login():
+    """ POST /sessions
+    create session for user if valid info is submitted
+    """
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if AUTH.valid_login(email, password):
+        session_id = AUTH.create_session(email)
+        response = make_response()
+        response.set_cookie("session_id", session_id)
+        return jsonify({"email": email, "message": "logged in"})
+    abort(401)
+
 
 
 if __name__ == "__main__":

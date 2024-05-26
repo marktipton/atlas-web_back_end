@@ -62,7 +62,7 @@ def logout():
         finds user with requested session id and destroys
         the session for that user if they exist
     """
-    session_id = request.form.get('session_id')
+    session_id = request.cookies.get('session_id')
 
     user = AUTH.get_user_from_session_id(session_id)
     if user:

@@ -47,11 +47,11 @@ class DB:
             # Query the User table and find the first row w/ specified
             # input args
             user = self._session.query(User).filter_by(**kwargs).one()
-            return user
         except NoResultFound:
-            raise NoResultFound()
+            return None
         except InvalidRequestError:
             raise InvalidRequestError()
+        return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """uses find_user_by to locate user before updating"""

@@ -31,7 +31,6 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    @property
     def add_user(self, email: str, hashed_password: str) -> User:
         """adds user objet to database"""
         new_user = User(email=email, hashed_password=hashed_password)

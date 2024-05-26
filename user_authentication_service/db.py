@@ -41,7 +41,7 @@ class DB:
         session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """returns the first row in the users table"""
         try:
             # Query the User table and find the first row w/ specified

@@ -11,10 +11,12 @@ import os
 app = Flask(__name__)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
+
 @app.route('', methods=['GET'])
 def jsonPayload():
     """returns JSON payload"""
-    return {"message": "Bienvenue"}
+    payload = {"message": "Bienvenue"}
+    return jsonify(payload)
 
 
 if __name__ == "__main__":

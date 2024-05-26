@@ -52,3 +52,14 @@ class DB:
             raise NoResultFound()
         except InvalidRequestError:
             raise InvalidRequestError()
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """uses find_user_by to locate user before updating"""
+        user = self.find_user_by(id=user_id)
+
+        for key, value in kwargs.items():
+            # check if the user item found in the table has a key
+            if hasattr(user, key):
+                setattr(user, key, value)
+            else:
+                raise ValueError("does not correspond to a user attribute")

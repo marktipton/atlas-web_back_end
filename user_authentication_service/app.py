@@ -33,7 +33,7 @@ def users():
     try:
         # assign user instance to variable user
         user = AUTH.register_user(email, password)
-        return jsonify({"email": user.email, "message": "user created"}), 201
+        return jsonify({"email": user.email, "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registed"}), 400
 

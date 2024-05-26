@@ -30,7 +30,7 @@ class Auth:
     def register_user(self, email: str, password: str) -> User:
         """Registers user by hashing pw if the user doesnt already exist"""
         if self._db.find_user_by(email=email):
-            ValueError(f"User {email} already exists")
+            raise ValueError(f"User {email} already exists")
 
         hashed_pw = _hash_password(password)
         registered_user = self._db.add_user(email, hashed_pw)

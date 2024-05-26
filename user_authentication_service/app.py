@@ -9,10 +9,10 @@ import os
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+CORS(app)
 
 
-@app.route('', methods=['GET'])
+@app.route("/", methods=['GET'])
 def jsonPayload():
     """returns JSON payload"""
     payload = {"message": "Bienvenue"}

@@ -43,9 +43,11 @@ class Auth:
             False in any other case
         """
         userPwBytes = password.encode('utf-8')
-
-        if self._db.find_user_by(email=email):
-            if bcrypt.checkpw(userPwBytes, self.register_user[email]):
+        user = self._db.find_user_by(email=email)
+        # check if email exists
+        if user:
+            # check entered pw against stored pw
+            if bcrypt.checkpw(userPwBytes, user.hashed_password):
                 return True
 
         return False

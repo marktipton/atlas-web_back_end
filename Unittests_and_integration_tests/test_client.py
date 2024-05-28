@@ -69,6 +69,19 @@ class TestGithubOrgClient(unittest.TestCase):
         # check that get_json was called once with mocked url
         mock_get_json.assert_called_once_with("http://example.com/test")
 
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False),
+    ])
+    def test_has_license(self, repo, license, expected):
+        """test has_license method of GithubOrgClient"""
+        client = GithubOrgClient("example_org")
+
+        test_result = client.has_license(repo, license)
+
+        # compare expected result to has_license function call result
+        self.assertEqual(test_result, expected)
+
 
 if __name__ == '__main__':
     unittest.main()

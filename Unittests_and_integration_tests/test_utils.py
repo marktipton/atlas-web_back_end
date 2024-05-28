@@ -7,7 +7,6 @@ from parameterized import parameterized
 from unittest.mock import patch, Mock
 
 
-
 class TestAccessNestedMap(unittest.TestCase):
     """Tests for the access nested map function"""
 
@@ -60,3 +59,31 @@ class TestGetJson(unittest.TestCase):
             self.assertEqual(test, test_payload)
             # reset mock so it can be used for next test case
             mock_get_method.reset_mock()
+
+
+class TestMemoize(unittest.TestCase):
+    """tests the memoize method of utils"""
+    def test_memoize(self):
+        """tests memoize function/decorator from utils"""
+        class TestClass:
+
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        testInstance = TestClass()
+
+        with patch.object(
+            testInstance, 'a_method', wraps=testInstance.a_method
+        ) as mock_method:
+            # call twice
+            call1 = testInstance.a_property
+            call2 = testInstance.a_property
+
+            self.assertEqual(call1, 42)
+            self.assertEqual(call2, 42)
+            # assert that a_method was only called once
+            mock_method.assert_called_once()

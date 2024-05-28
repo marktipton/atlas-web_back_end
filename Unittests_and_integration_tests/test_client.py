@@ -49,7 +49,6 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(result, test_payload["test_url"])
 
     @patch('client.get_json')
-    @patch(GithubOrgClient, '_public_repos_url')
     def test_public_repos(self, mock_repo_url, mock_get_json):
         """test for public_repos method in client"""
         mock_payload = [{"name": "repo1"}, {"name": "repo2"}]
@@ -69,6 +68,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
         # check that get_json was called once with mocked url
         mock_get_json.assert_called_once_with("http://example.com/test")
+
 
 if __name__ == '__main__':
     unittest.main()

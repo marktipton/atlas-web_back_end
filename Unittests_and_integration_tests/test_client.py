@@ -31,6 +31,19 @@ class TestGithubOrgClient(unittest.TestCase):
         # check that actual method result and mock response are the same
         self.assertEqual(orgMethodresult, mock_response)
 
+    def test_public_repos_url(self):
+        """unit-test fpr GithubOrgClient _public_repos_url property"""
+        test_payload = {"test_url": "http://example.com/test"}
+
+        with patch.object(GithubOrgClient, 'org') as mock_org:
+            mock_org.return_value = test_payload
+
+            client = GithubOrgClient("example_org")
+
+            result = client._public_repos_url
+
+            self.assertEqual(result, test_payload["test_url"])
+
 
 if __name__ == '__main__':
     unittest.main()

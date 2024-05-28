@@ -37,8 +37,26 @@ class TestAccessNestedMap(unittest.TestCase):
 
 class TestGetJson(unittest.TestCase):
     """Tests for get_json method in utils"""
+
+    # user patch decorator to avoid making actual http requests
     @patch('utils.requests.get')
-    def test_get_json():
-
+    def test_get_json(self, mock_get_method):
         """returns expected result for utils.get_json"""
+        test_cases = [
+            ("http://example.com", {"payload": True}),
+            ("http://holberton.io", {"payload": False})
+        ]
 
+        # use tuple unpacking to get test case parameters
+        for test_url, test_payload in test_cases:
+            mock_response = Mock()
+            mock_response.json.return_value = test_payload
+            mock_get_method.return_value = mock_response
+
+            test = get_json(test_url)
+
+            mock_get_method.assert_called_once_with(test_url)
+            # check output of json get method against test_payload
+            self.assertEqual(test, test_payload)
+            # reset mock so it can be used for next test case
+            mock_get_method.reset_mock()

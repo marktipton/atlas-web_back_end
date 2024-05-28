@@ -20,9 +20,9 @@ class TestAccessNestedMap(unittest.TestCase):
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
     @parameterized.expand([
-    # check if key error is raised when nested map does not exist
+        # check if key error is raised when nested map does not exist
         ({}, ("a",)),
-    # check if key error when key's value is not a dictionary
+        # check if key error when key's value is not a dictionary
         ({"a": 1}, ("a", "b"))
     ])
     def test_access_nested_map_exception(self, nested_map, path):

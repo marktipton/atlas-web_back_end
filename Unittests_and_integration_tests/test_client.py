@@ -84,11 +84,12 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(test_result, expected)
 
 
-@parameterized_class(('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'), [
-    (org_payload, repos_payload, expected_repos, apache2_repos)
-])
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Integreation test for public repos method"""
+    @parameterized_class(('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'), [
+        (org_payload, repos_payload, expected_repos, apache2_repos)
+    ])
+
     @classmethod
     def setUpClass(cls) -> None:
         """set up test class"""

@@ -98,9 +98,10 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """set up test class"""
-        cls.get_patcher = patch('requests.get',
-                                side_effect=cls.mock_get)
-
+        cls.get_patcher = patch(
+            'requests.get',
+            side_effect=cls.mock_get
+        )
         # start patcher
         cls.mock_get = cls.get_patcher.start()
         # define side effects to return fixtures corresponding to URLS

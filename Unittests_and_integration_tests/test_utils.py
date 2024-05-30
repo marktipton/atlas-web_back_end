@@ -74,12 +74,12 @@ class TestMemoize(unittest.TestCase):
             def a_property(self):
                 return self.a_method()
 
-        testInstance = TestClass()
 
         with patch.object(
             testInstance, 'a_method', wraps=testInstance.a_method
         ) as mock_method:
             # call twice
+            testInstance = TestClass()
             call1 = testInstance.a_property
             call2 = testInstance.a_property
 

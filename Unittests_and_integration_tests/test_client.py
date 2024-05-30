@@ -3,7 +3,8 @@
 """
 import unittest
 from client import GithubOrgClient
-from parameterized import parameterized
+from fixtures import org_payload, repos_payload, expected_repos, apache2_repos
+from parameterized import parameterized, parameterized_class
 from unittest.mock import patch, Mock
 
 
@@ -81,6 +82,22 @@ class TestGithubOrgClient(unittest.TestCase):
 
         # compare expected result to has_license function call result
         self.assertEqual(test_result, expected)
+
+
+@parameterized_class(('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'), [
+    (org_payload, repos_payload, expected_repos, apache2_repos)
+])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """Integreation test for public repos method"""
+    @classmethod
+    def setUpClass(cls) -> None:
+        """set up test class"""
+        return super().setUpClass()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        """tear down test class"""
+        return super().tearDownClass()
 
 
 if __name__ == '__main__':

@@ -92,12 +92,15 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         """set up test class"""
-        return super().setUpClass()
+        cls.get_patcher = patch('client.requests.get')
+
+        # start patcher
+        cls.mock_get = cls.get_patcher.start()
 
     @classmethod
     def tearDownClass(cls) -> None:
         """tear down test class"""
-        return super().tearDownClass()
+        cls.get_patcher.stop()
 
 
 if __name__ == '__main__':

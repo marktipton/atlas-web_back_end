@@ -5,7 +5,7 @@ import unittest
 from client import GithubOrgClient
 from fixtures import TEST_PAYLOAD
 from parameterized import parameterized, parameterized_class
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, PropertyMock
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -92,21 +92,17 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     )
 
     @classmethod
-    def setUpClass(cls) -> None:
+    def setUpClass(cls):
         """set up test class"""
-        cls.get_patcher = patch('client.requests.get')
+        cls.get_patcher = patch('requests.get',
+                                side_effect=cls.mock_get)
 
         # start patcher
         cls.mock_get = cls.get_patcher.start()
         # define side effects to return fixtures corresponding to URLS
-        cls.mock_get.side_effect = [
-            Mock(json=lambda: cls.org_payload),
-            Mock(json=lambda: cls.repos_payload),
-            Mock(json=lambda: cls.apache2_repos)
-        ]
 
     @classmethod
-    def tearDownClass(cls) -> None:
+    def tearDownClass(cls):
         """tear down test class"""
         cls.get_patcher.stop()
 

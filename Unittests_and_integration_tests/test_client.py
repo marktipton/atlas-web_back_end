@@ -54,21 +54,25 @@ class TestGithubOrgClient(unittest.TestCase):
         """test for public_repos method in client"""
         mock_payload = [{"name": "repo1"}, {"name": "repo2"}]
 
-        mock_repo_url.return_value = "http://example.com/test"
-
         mock_get_json.return_value = mock_payload
 
-        client = GithubOrgClient("example_org")
+        with patch.object(
+            GithubOrgClient, '_public_repos_url', new_callable=PropertyMock
+        ) as mock_repo_url:
+            mock_repo_url.return_value = "http://example.com/test"
+            client = GithubOrgClient("example_org")
 
-        repo = client.public_repos()
-        # check that result is the list of repos from the mock payload
-        self.assertEqual(repo, ["repo1", "repo2"])
+            repo = client.public_repos()
+            # print(repo)
+            # print(["repo1", "repo2"])
+            # check that result is the list of repos from the mock payload
+            self.assertEqual(repo, ["repo1", "repo2"])
 
-        # check that _public_repos_url was only called once
-        mock_repo_url.assert_called_once()
+            # check that _public_repos_url was only called once
+            mock_repo_url.assert_called_once()
 
-        # check that get_json was called once with mocked url
-        mock_get_json.assert_called_once_with("http://example.com/test")
+            # check that get_json was called once with mocked url
+            mock_get_json.assert_called_once_with("http://example.com/test")
 
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),

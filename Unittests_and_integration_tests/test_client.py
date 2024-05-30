@@ -97,6 +97,12 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
         # start patcher
         cls.mock_get = cls.get_patcher.start()
+        # define side effects to return fixtures corresponding to URLS
+        cls.mock_get.side_effect = [
+            Mock(json=lambda: cls.org_payload),
+            Mock(json=lambda: cls.repos_payload),
+            Mock(json=lambda: cls.apache2_repos)
+        ]
 
     @classmethod
     def tearDownClass(cls) -> None:

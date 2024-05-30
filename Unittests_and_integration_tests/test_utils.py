@@ -29,7 +29,7 @@ class TestAccessNestedMap(unittest.TestCase):
         """test that KeyError is raised"""
         # with sets up context for code block that follows
         # if KeyError is raised the the context manager catches it
-        # i.e. the test passes if a keyerror is raised
+        # i.e. the test if a keyerror is raised
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
 

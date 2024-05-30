@@ -5,7 +5,7 @@ import unittest
 from client import GithubOrgClient
 from fixtures import TEST_PAYLOAD
 from parameterized import parameterized, parameterized_class
-from unittest.mock import patch, Mock, PropertyMock
+from unittest.mock import patch, PropertyMock
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -40,7 +40,8 @@ class TestGithubOrgClient(unittest.TestCase):
 
         # patch the org method of GithubOrgClient so that the mocked method is
         # called instead of the actual method
-        with patch.object(GithubOrgClient, 'org') as mock_org:
+        with patch.object(GithubOrgClient, 'org',
+                          new_callable=PropertyMock) as mock_org:
             mock_org.return_value = test_payload
 
             client = GithubOrgClient("example_org")
@@ -56,7 +57,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
         mock_get_json.return_value = mock_payload
 
-        with patch.object(client.GithubOrgClient, '_public_repos_url',
+        with patch.object(GithubOrgClient, '_public_repos_url',
                           new_callable=PropertyMock) as mock_repo_url:
             mock_repo_url.return_value = "http://example.com/test"
             client = GithubOrgClient("example_org")
@@ -88,7 +89,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
 
 class TestIntegrationGithubOrgClient(unittest.TestCase):
-    """Integreation test for public repos method"""
+    """Integration test for public repos method"""
     @parameterized_class(
         ("org_payload", "repos_payload", "expected_repos", "apache2_repos"),
         TEST_PAYLOAD

@@ -38,16 +38,15 @@ class TestGetJson(unittest.TestCase):
     """Tests for get_json method in utils"""
 
     # user patch decorator to avoid making actual http requests
-    @patch('utils.requests.get')
-    def test_get_json(self, mock_get_method):
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False}),
+    ])
+    def test_get_json(self, test_url, test_payload):
         """returns expected result for utils.get_json"""
-        test_cases = [
-            ("http://example.com", {"payload": True}),
-            ("http://holberton.io", {"payload": False})
-        ]
 
         # use tuple unpacking to get test case parameters
-        for test_url, test_payload in test_cases:
+        with patch('utils.requests.get') as mock_get_method:
             mock_response = Mock()
             mock_response.json.return_value = test_payload
             mock_get_method.return_value = mock_response
@@ -66,7 +65,6 @@ class TestMemoize(unittest.TestCase):
     def test_memoize(self):
         """tests memoize function/decorator from utils"""
         class TestClass:
-
             def a_method(self):
                 return 42
 

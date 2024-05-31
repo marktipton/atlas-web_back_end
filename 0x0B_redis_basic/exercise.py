@@ -9,12 +9,14 @@ from typing import Union
 
 class Cache:
     """redis caching"""
-    def __init__(self) -> None:
+    def __init__(self):
         # store instance of redis client
-        _redis = redis.Redis()
+        self._redis = redis.Redis(host='localhost', port=6379, db=0)
         # flush instance
-        _redis.flushdb
+        self._redis.flushdb()
 
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """generates a random key and stores"""
-        random_key = uuid.uuid4()
+        random_key = str(uuid.uuid4())
+        self._redis.set(random_key, data)
+        return random_key

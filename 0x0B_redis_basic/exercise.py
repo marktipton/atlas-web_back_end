@@ -8,13 +8,13 @@ import uuid
 from typing import Union, Callable, Optional, Any
 
 
-def count_calls(f: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """decorator function to count calls of another function or class"""
-    @wraps(f)
+    @wraps(method)
     def wrapper(*args, **kwds):
         """wrapper"""
         print('Calling decorated function')
-        return f(*args, **kwds)
+        return method(*args, **kwds)
     return wrapper
 
 @count_calls

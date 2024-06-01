@@ -4,7 +4,7 @@ Exercise operations Redis
 """
 import redis
 import uuid
-from typing import Union
+from typing import Union, Callable
 
 
 class Cache:
@@ -20,3 +20,13 @@ class Cache:
         random_key = str(uuid.uuid4())
         self._redis.set(random_key, data)
         return random_key
+
+    def get(self, key: str, fn: Callable = None):
+        """used to convert data back from byte string"""
+
+    def get_str(self):
+        """parameterize Cache.get with str conversion"""
+
+    def get_int(self):
+        """parameterize Cache.get with int conversion"""
+

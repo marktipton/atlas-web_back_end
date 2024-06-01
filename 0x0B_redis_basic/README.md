@@ -14,3 +14,5 @@
 - Redis can act as both a caching system and a database
 
 - Redis can be used with virtually every programming language
+
+- Reids allows storage of strings, bytes, numbers, and list. Whatever single elements are stored will be returned as a byte string. For example, if you store 'a' as a UTF-8 string it will be returned as 'b"a"' when retrieved from the server.

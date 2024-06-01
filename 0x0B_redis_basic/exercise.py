@@ -2,11 +2,22 @@
 """
 Exercise operations Redis
 """
+from functools import wraps
 import redis
 import uuid
 from typing import Union, Callable, Optional, Any
 
 
+def count_calls(f: Callable) -> Callable:
+    """decorator function to count calls of another function or class"""
+    @wraps(f)
+    def wrapper(*args, **kwds):
+        """wrapper"""
+        print('Calling decorated function')
+        return f(*args, **kwds)
+    return wrapper
+
+@count_calls
 class Cache:
     """redis caching"""
     def __init__(self):

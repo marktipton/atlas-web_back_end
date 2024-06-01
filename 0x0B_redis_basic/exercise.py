@@ -4,7 +4,7 @@ Exercise operations Redis
 """
 import redis
 import uuid
-from typing import Union, Callable, Optional
+from typing import Union, Callable, Optional, Any
 
 
 class Cache:
@@ -21,12 +21,19 @@ class Cache:
         self._redis.set(random_key, data)
         return random_key
 
-    def get(self, key: str, fn: Callable = None) ->:
+    def get(self, key: str, fn: Optional[Callable] = None) -> Optional[Any]:
         """used to convert data back from byte string"""
+        data = self._redis.get(key)
+        if data is None:
+            return None
+        if fn is not None:
+            return fn(data)
+        return data
 
-    def get_str(self):
+    def get_str(self, key: str) -> str:
         """parameterize Cache.get with str conversion"""
+        return self.get(key, lambda a: a.decode('utf-8'))
 
-    def get_int(self):
+    def get_int(self, key: str) -> int:
         """parameterize Cache.get with int conversion"""
-
+        return self.get(key, lambda a: int(a))

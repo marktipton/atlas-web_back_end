@@ -13,31 +13,25 @@ def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args, **kwds):
         """wrapper"""
-        cls = self.__class__
-        # initialize _call_counts attribute if it does not exist in class
-        if not hasattr(cls, '_call_counts'):
-            # dictionary for storing call counts for each method
-            cls._call_counts = {}
-        # check if qualified name is not already a key
-        # in the _call_counts dictionary
-        if method.__qualname__ not in cls._call_counts:
-            # since the qualname is not in the dictioanry, init its count to 0
-            cls._call_counts[method.__qualname__] = 0
-        # otherwise, qualname is in the dictionary
-        # so increment the value to count call
-        cls._call_counts[method.__qualname__] += 1
+        self.last_called_method = method.__qualname__
         return method(self, *args, **kwds)
     return wrapper
+
+def call_history(method: Callable) -> Callable:
+    """stores the history of inputs and outputs for a function"""
 
 
 class Cache:
     """redis caching"""
+    last_called_method = None
+
     def __init__(self):
         # store instance of redis client
         self._redis = redis.Redis(host='localhost', port=6379, db=0)
         # flush instance
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """generates a random key and stores"""
@@ -47,6 +41,11 @@ class Cache:
 
     def get(self, key: str, fn: Optional[Callable] = None) -> Optional[Any]:
         """used to convert data back from byte string"""
+        method_name = self.last_called_method
+        # if no method called yet
+        if method_name is None:
+             return None
+        key = f"Cache.{method_name}"
         data = self._redis.get(key)
         if data is None:
             return None

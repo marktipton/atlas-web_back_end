@@ -19,6 +19,7 @@ def count_calls(method: Callable) -> Callable:
         return method(self, *args, **kwds)
     return wrapper
 
+
 def call_history(method: Callable) -> Callable:
     """stores the history of inputs and outputs for a function"""
     @wraps(method)
@@ -37,21 +38,25 @@ def call_history(method: Callable) -> Callable:
         return result
     return wrapper
 
+
 def replay(method: Callable):
     """Returns the call history for a given method"""
     qualname = method.__qualname__
-    redis_client = method.__self__._redis
+    cache_instance = method.__self__
     input_key = f"{qualname}:inputs"
     output_key = f"{qualname}:outputs"
-    inputs = redis_client.lrange(input_key, 0, -1)
-    outputs = redis_client.lrange(output_key, 0, -1)
+    inputs = cache_instance._redis.lrange(input_key, 0, -1)
+    outputs = cache_instance._redis.lrange(output_key, 0, -1)
     history = list(zip(inputs, outputs))
 
-    num_calls = redis_client.get(qualname)
+    num_calls = cache_instance.get_int(qualname)
 
-    print(f"{qualname} was called {num_calls} times")
-    for input_values, output_values in history:
-        print(f"{qualname}(*{input_values}) -> {output_values}")
+    print(f"{qualname} was called {num_calls} times:")
+    for input_value, output_value in history:
+        input_str = input_value.decode('utf-8')
+        output_str = output_value.decode('utf-8')
+        print(f"{qualname}(*{input_str}) -> {output_str}")
+
 
 class Cache:
     """redis caching"""

@@ -13,18 +13,23 @@ def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args, **kwds):
         """wrapper"""
-        self.last_called_method = method.__qualname__
+        # increment call count in Redis
+        self._redis.incr(method.__qualname__)
+        # call the decorated method
         return method(self, *args, **kwds)
     return wrapper
 
 def call_history(method: Callable) -> Callable:
     """stores the history of inputs and outputs for a function"""
-
+    @wraps(method)
+    def wrapper(self, *args, **kwds):
+        """wrapper"""
+        r = method(self, *args, **kwds)
+        return r
+    return wrapper
 
 class Cache:
     """redis caching"""
-    last_called_method = None
-
     def __init__(self):
         # store instance of redis client
         self._redis = redis.Redis(host='localhost', port=6379, db=0)
@@ -41,11 +46,6 @@ class Cache:
 
     def get(self, key: str, fn: Optional[Callable] = None) -> Optional[Any]:
         """used to convert data back from byte string"""
-        method_name = self.last_called_method
-        # if no method called yet
-        if method_name is None:
-             return None
-        key = f"Cache.{method_name}"
         data = self._redis.get(key)
         if data is None:
             return None

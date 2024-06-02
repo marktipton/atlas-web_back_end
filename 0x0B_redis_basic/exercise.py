@@ -37,6 +37,22 @@ def call_history(method: Callable) -> Callable:
         return result
     return wrapper
 
+def replay(method: Callable):
+    """Returns the call history for a given method"""
+    qualname = method.__qualname__
+    redis_client = method.__self__._redis
+    input_key = f"{qualname}:inputs"
+    output_key = f"{qualname}:outputs"
+    inputs = redis_client.lrange(input_key, 0, -1)
+    outputs = redis_client.lrange(output_key, 0, -1)
+    history = list(zip(inputs, outputs))
+
+    num_calls = redis_client.get(qualname)
+
+    print(f"{qualname} was called {num_calls} times")
+    for input_values, output_values in history:
+        print(f"{qualname}(*{input_values}) -> {output_values}")
+
 class Cache:
     """redis caching"""
     def __init__(self):

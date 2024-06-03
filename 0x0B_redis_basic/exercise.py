@@ -10,11 +10,12 @@ from typing import Union, Callable, Optional, Any
 
 def count_calls(method: Callable) -> Callable:
     """decorator function to count calls of another function or class"""
+    key = method.__qualname__
     @wraps(method)
     def wrapper(self, *args, **kwds):
         """wrapper"""
         # increment call count in Redis
-        self._redis.incr(method.__qualname__)
+        self._redis.incr(key)
         # call the decorated method
         return method(self, *args, **kwds)
     return wrapper

@@ -4,7 +4,8 @@
 CREATE OR REPLACE VIEW glam_rock_by_longevity AS
 SELECT
   band_name,
-  split - formed AS lifespan
+  -- if split is NONE in table then current date is used instead
+  COALESCE(split, YEAR(CURDATE())) - formed AS lifespan
 FROM
   metal_bands
 WHERE

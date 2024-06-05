@@ -5,7 +5,7 @@ CREATE TRIGGER decrease_item_when_ordered
 AFTER INSERT ON orders
 FOR EACH ROW
 BEGIN
- UPDATE items
+  UPDATE items
   SET quantity = quantity - NEW.number
   WHERE name = NEW.item_name;
 END;

@@ -1,8 +1,13 @@
 -- divides and returns result of two numbers
+DELIMITER //
 
-CREATE FUNCTION SafeDiv(a INT, b INT)
-  RETURNS FLOAT
-  IF b = 0
-    RETURN 0
-  ELSE
-    RETURN a / b;
+CREATE FUNCTION SafeDiv(
+  a INT,
+  b INT
+) RETURNS FLOAT
+DETERMINISTIC
+BEGIN
+    RETURN IF(b = 0, 0, a / b);
+END //
+
+DELIMITER ;

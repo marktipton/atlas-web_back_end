@@ -13,14 +13,18 @@ BEGIN
   -- checl whether project exists
   SELECT id INTO project_id
   FROM projects
-  WHERE name = project_name
+  WHERE name = project_name;
 
   -- if no project then create it
   IF project_id IS NULL THEN
-    INSERT INTO projects (name) VALUES (project_name)
+    INSERT INTO projects (name) VALUES (project_name);
     -- LAST_INSERT_ID() returns the last automatically generated value set for
     -- an AUTO_INCREMENT column during the most recent INSERT operation
     SET project_id = LAST_INSERT_ID();
+  ELSE
+    SELECT id INTO project_id
+    FROM projects
+    WHERE name = project_name;
   END IF;
 
   INSERT INTO corrections (user_id, project_id, score)

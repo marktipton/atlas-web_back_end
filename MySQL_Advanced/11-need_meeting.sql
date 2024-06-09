@@ -3,7 +3,7 @@
 
 CREATE VIEW need_meeting AS
 SELECT
-  * FROM students
+  name, score, last_meeting FROM students
   WHERE score < 80
   AND last_meeting = NULL
   OR last_meeting > 1;

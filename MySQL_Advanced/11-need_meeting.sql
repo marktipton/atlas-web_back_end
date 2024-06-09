@@ -5,8 +5,7 @@ CREATE VIEW need_meeting AS
 SELECT
   name, score, last_meeting FROM students
   WHERE score < 80
-  AND last_meeting = NULL
-  OR last_meeting > 1;
+  AND (last_meeting IS NULL OR last_meeting < DATE_SUB(CURDATE(), INTERVAL 1 MONTH));
 
 
 SELECT * FROM need_meeting;

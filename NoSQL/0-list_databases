@@ -1,0 +1,7 @@
+// list databases command
+// db.adminCommand(
+//    {
+//      listDatabases: 1
+//   }
+// )
+show dbs

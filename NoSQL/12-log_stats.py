@@ -6,18 +6,20 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://127.0.0.1:27017')
 nginx_collection = client.logs.nginx
 
-def log_stats():
+def log_stats(collection):
     """log for nginx stats"""
-    num_logs = nginx_collection.count_documents({})
+    num_logs = collection.count_documents({})
     print(f"{num_logs} logs")
 
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print("Methods:")
     for method in methods:
-        method_count = nginx_collection.count_documents({"method": method})
+        method_count = collection.count_documents({"method": method})
         print(f"\tmethod {method}: {method_count}")
 
-    status_count = nginx_collection.count_documents(
+    status_count = collection.count_documents(
         {"method": "GET", "path": "/status"}
     )
     print(f"{status_count} status check")
+
+log_stats(nginx_collection)

@@ -3,10 +3,7 @@
 from pymongo import MongoClient
 
 
-client = MongoClient('mongodb://127.0.0.1:27017')
-nginx_collection = client.logs.nginx
-
-def log_stats():
+def log_stats(nginx_collection):
     """log for nginx stats"""
     num_logs = nginx_collection.count_documents({})
     print(f"{num_logs} logs")
@@ -22,4 +19,10 @@ def log_stats():
     )
     print(f"{status_count} status check")
 
-log_stats()
+
+if __name__ == "__main__":
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['logs']
+    collection = db['nginx']
+
+    log_stats(collection)

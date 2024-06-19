@@ -2,7 +2,6 @@ const http = require('http');
 // const fs = require('fs/promises');
 const url = require('url');
 const countStudents = require('./3-read_file_async');
-const { count } = require('console');
 const host = 'localhost';
 const port = 1245;
 
@@ -21,8 +20,14 @@ const app = http.createServer(async (request_obj, response_obj) => {
       response_obj.end('Database name must be provided as an argument');
       return;
     }
-    students = countStudents(databasePath);
-    response_obj.end(students);
+    try {
+      // use await bc countstudents is
+      // an async operation which returns a promise
+      const students = await countStudents(databasePath);
+      response_obj.end(`This is the list of our students\n${students}`);
+    } catch (error) {
+      response_obj.end(`Error: ${error.message}`);
+    }
   }
 });
 app.listen(port, host, () => {

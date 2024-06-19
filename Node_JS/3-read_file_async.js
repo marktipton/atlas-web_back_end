@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
 async function countStudents(path) {
   try {
@@ -24,14 +24,16 @@ async function countStudents(path) {
       }
     });
 
-    console.log(`Number of students: ${students.length}`);
-
+    // console.log(`Number of students: ${students.length}`);
+    let output = `Number of students: ${students.length}\n`
     for (const field in students_by_field) {
       const len = students_by_field[field].length;
-      console.log(`Number of students in ${field}: ${len}. ` +
-        `List: ${students_by_field[field].join(', ')}`
-      );
+      output += `Number of students in ${field}: ${len}. ` +
+        `List: ${students_by_field[field].join(', ')}\n`;
+      console.log(output);
     };
+
+    return output.trim();
   } catch (error) {
     console.error('Cannot load the database');
   }

@@ -1,15 +1,31 @@
-const readDatabase = require('./utils');
+const readDatabase = require('../utils');
+
+const databasePath = process.argv[2];
 
 class StudentsController {
-  static getAllStudents(request, response) {
-    response.status(200).send(
-      `This is the list of our students\n${readDatabase}`
-    );
+  static async getAllStudents(request, response) {
+    try {
+      const output = await readDatabase(databasePath);
+      response.status(200).send(
+        `This is the list of our students\n${output}`
+      );
+    } catch (error) {
+      response.status(500).send(`Error: ${error.message}`);
+    }
   }
 
-  static getAllStudentsByMajor(request, response, major) {
+  static async getAllStudentsByMajor(request, response) {
+    const { major } = request.params;
     if (major !== 'CS' || major !== 'SWE') {
-      console.error('Major entered does not exist')
+      response.status(500).send('Major must be CS or SWE');
+      return;
+    }
+
+    try {
+      const output = await readDatabase(databasePath);
+      response.status(200).send(`List of students in ${major}:\n${output}`);
+    } catch (error) {
+      response.status(500).send(`Error: ${error.message}`);
     }
   }
 }

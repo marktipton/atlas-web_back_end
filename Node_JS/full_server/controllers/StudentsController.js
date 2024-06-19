@@ -16,14 +16,15 @@ class StudentsController {
 
   static async getAllStudentsByMajor(request, response) {
     const { major } = request.params;
-    if (major !== 'CS' || major !== 'SWE') {
-      response.status(500).send('Major must be CS or SWE');
-      return;
+    if (major !== 'CS' && major !== 'SWE') {
+      return response.status(500).send('Major must be CS or SWE');
     }
 
     try {
-      const output = await readDatabase(databasePath);
-      response.status(200).send(`List of students in ${major}:\n${output}`);
+      const students = await readDatabase(databasePath);
+      const studentList = students[major] || [];
+      const studentNames = studentList.join(', ');
+      response.status(200).send(`List: ${studentNames}`);
     } catch (error) {
       response.status(500).send(`Error: ${error.message}`);
     }

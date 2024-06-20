@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 async function countStudents(path) {
   try {
     const data = await fs.readFile(path, 'utf-8');
-    const csv_lines = data.split('\n').filter(line => line.trim() !== '');
+    const csv_lines = data.split('\n').filter((line) => line.trim() !== '');
     // take off first line to isolate student data
     const students = csv_lines.slice(1);
 
@@ -25,17 +25,17 @@ async function countStudents(path) {
     });
 
     // console.log(`Number of students: ${students.length}`);
-    let output = `Number of students: ${students.length}\n`
+    let output = `Number of students: ${students.length}\n`;
     for (const field in students_by_field) {
       const len = students_by_field[field].length;
-      output += `Number of students in ${field}: ${len}. ` +
-        `List: ${students_by_field[field].join(', ')}\n`;
-    };
+      output += `Number of students in ${field}: ${len}. `
+        + `List: ${students_by_field[field].join(', ')}\n`;
+    }
 
     console.log(output);
     return output.trim();
   } catch (error) {
-    console.error('Cannot load the database');
+    throw new Error('Cannot load the database');
   }
 }
 

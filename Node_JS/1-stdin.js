@@ -1,7 +1,7 @@
-let str = "Welcome to Holberton School, what is your name?";
+const str = 'Welcome to Holberton School, what is your name?';
 
 console.log(str);
-process.stdin.on('data', data => {
+process.stdin.on('data', (data) => {
   // process.stdin.read();
   process.stdout.write(`Your name is: ${data.toString()}`);
 });

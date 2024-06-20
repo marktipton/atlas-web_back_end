@@ -21,11 +21,18 @@ class StudentsController {
     }
 
     try {
-      const students = await readDatabase(databasePath);
-      const studentList = students[major] || [];
-      const studentNames = studentList.join(', ');
+      const data = await readDatabase(databasePath);
+      const lines = data.split('\n');
+      const majorLine = lines.find(line => line.includes(
+        `Number of students in ${major}`
+      ));
+      let studentNames = '';
+      if (majorLine) {
+        studentNames = majorLine.split('List: ')[1];
+      }
       response.status(200).send(`List: ${studentNames}`);
     } catch (error) {
+      console.error('Error reading database:', error);
       response.status(500).send(`Error: ${error.message}`);
     }
   }

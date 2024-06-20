@@ -28,9 +28,11 @@ function countStudents(path) {
     console.log(`Number of students: ${students.length}`);
 
     for (const field in studentsByField) {
-      const len = studentsByField[field].length;
-      console.log(`Number of students in ${field}: ${len}. `
-        + `List: ${studentsByField[field].join(', ')}`);
+      if (Object.prototype.hasOwnProperty.call(studentsByField, field)) {
+        const len = studentsByField[field].length;
+        console.log(`Number of students in ${field}: ${len}. `
+          + `List: ${studentsByField[field].join(', ')}`);
+      }
     }
   } catch (error) {
     console.error('Cannot load the database');

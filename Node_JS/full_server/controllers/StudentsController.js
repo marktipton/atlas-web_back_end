@@ -7,7 +7,7 @@ class StudentsController {
     try {
       const output = await readDatabase(databasePath);
       response.status(200).send(
-        `This is the list of our students\n${output}`
+        `This is the list of our students\n${output}`,
       );
     } catch (error) {
       response.status(500).send(`Error: ${error.message}`);
@@ -23,8 +23,8 @@ class StudentsController {
     try {
       const data = await readDatabase(databasePath);
       const lines = data.split('\n');
-      const majorLine = lines.find(line => line.includes(
-        `Number of students in ${major}`
+      const majorLine = lines.find((line) => line.includes(
+        `Number of students in ${major}`,
       ));
       let studentNames = '';
       if (majorLine) {

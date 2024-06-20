@@ -1,8 +1,8 @@
 const express = require('express');
-const AppController = require('./controllers/AppController');
+const router = require('./routes/index');
+
 const app = express();
 const port = 1245;
-const router = require('./routes/index');
 
 app.use('/', router);
 

@@ -12,7 +12,7 @@ describe('sendPaymentRequestToApi', function() {
   });
 
   this.afterEach(function() {
-    spy.resote();
+    spy.restore();
   });
 
   it('should call utils.calulate number with SUM 200 and 20', function() {

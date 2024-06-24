@@ -1,7 +1,8 @@
 // 0-calcul.test.js
 
-const { expect } = require('chai');
-const calculateNumber = require('./ 2-calcul_chai');
+const chai = require('chai');
+const expect = chai.expect;
+const calculateNumber = require('./2-calcul_chai');
 
 describe('calculateNumber', function() {
   it('should return 4 when inputs are 1 and 3', function() {
@@ -48,7 +49,7 @@ describe('calculateNumber', function() {
     expect(calculateNumber('SUBTRACT', -0.7, -1.7)).to.equal(1);
   });
 
- it('should return 0 when inputs are 0 and 0', function() {
+  it('should return 0 when inputs are 0 and 0', function() {
     expect(calculateNumber('SUBTRACT', 0, 0)).to.equal(0);
   });
 

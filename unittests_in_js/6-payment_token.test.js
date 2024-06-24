@@ -9,13 +9,4 @@ describe('getPaymentTokenFromApi', function() {
       done();
     }).catch(done);
   });
-
-  // it('should handle rejection when success is false', function(done) {
-  //   getPaymentTokenFromAPI(false).then(response => {
-  //     done(new Error('Expected promise to be rejected'));
-  //   }).catch(error => {
-  //     expect(error).to.be.an('error');
-  //     done();
-  //   });
-  // });
 });

@@ -64,3 +64,46 @@ describe('Cart Page', function() {
       });
   });
 });
+
+// Tests for available_payments
+describe('Available Payments', function() {
+  it('should return status code 200 and correct structure', function(done) {
+    chai.request('http://localhost:7865')
+      .get('/available_payments')
+      .end(function(error, response) {
+        expect(response).to.have.status(200);
+        expect(response.body).to.deep.equal({
+          payment_methods: {
+            credit_cards: true,
+            paypal: false
+          }
+        });
+        done();
+      });
+  });
+});
+
+// Tests for login post endpoint
+describe('Login', function() {
+  it('should return status code 200 and welcome message', function(done) {
+    chai.request('http://localhost:7865')
+      .post('/login')
+      .send({ userName: 'John' })
+      .end(function(error, response) {
+        expect(response).to.have.status(200);
+        expect(response.text).to.equal('Welcome John');
+        done();
+      });
+  });
+
+  it('should return status code 400 when userName is missing', function(done) {
+    chai.request('http://localhost:7865')
+      .post('/login')
+      .send({})
+      .end(function(error, response) {
+        expect(response).to.have.status(400);
+        expect(response.text).to.equal('Missing userName');
+        done();
+      });
+  });
+});

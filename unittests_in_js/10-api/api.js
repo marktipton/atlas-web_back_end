@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+app.use(express.json()); // for parsing json bodies
 
 const port = 7865;
 const host = 'localhost';
@@ -29,9 +30,9 @@ app.get('/available_payments', (request, response) => {
 app.post('/login', (request, response) => {
   const { userName } = request.body;
   if (!userName) {
-    return response.status(400).send('Mssing userName');
+    return response.status(400).send('Missing userName');
   }
-  response.send(`Welcome ${userName}`);
+  return response.send(`Welcome ${userName}`);
 });
 app.listen(port, () => {
   console.log(`API available on ${host} port ${port}`);

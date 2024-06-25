@@ -16,6 +16,23 @@ app.get('/cart/:id', (request, response) => {
   return response.send(`Payment methods for cart ${id}`);
 });
 
+app.get('/available_payments', (request, response) => {
+  const payments = {
+    payment_methods: {
+      credit_cards: true,
+      paypal: false
+    }
+  };
+  response.json(payments);
+});
+
+app.post('/login', (request, response) => {
+  const { userName } = request.body;
+  if (!userName) {
+    return response.status(400).send('Mssing userName');
+  }
+  response.send(`Welcome ${userName}`);
+});
 app.listen(port, () => {
   console.log(`API available on ${host} port ${port}`);
 });
